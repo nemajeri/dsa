@@ -170,7 +170,6 @@ class DoublyLinkedList {
   }
 
   // Function to clear the list
-  // Function to clear the list
   clear() {
     this.head = null;
     this.tail = null;
