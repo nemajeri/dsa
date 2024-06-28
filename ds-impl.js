@@ -135,10 +135,7 @@ class DoublyLinkedList {
       node = node.next;
       i++;
     }
-
-    if (i === index) {
-      return node.value;
-    }
+    return node.value;
   }
 
   // Function to update the value of a node at a specific position in the list
@@ -227,53 +224,132 @@ class SinglyLinkedList {
 
   // Function to insert a new node at a specific position in the list
   insert(index, value) {
-    // TODO: Implement insert function
     if (index < 0 || index > this.length) {
-      throw Error('Index out of bounds');
+      throw new Error('Index out of bounds');
     }
+
+    const newNode = new SinglyLinkedListNode(value);
+
+    if (index === 0) {
+      if (this.head === null) {
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        newNode.next = this.head;
+        this.head = newNode;
+      }
+    } else if (index === this.length) {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    } else {
+      let currentNode = this.head;
+      let i = 0;
+
+      while (i < index - 1) {
+        currentNode = currentNode.next;
+        i++;
+      }
+
+      newNode.next = currentNode.next;
+      currentNode.next = newNode;
+    }
+
+    this.length++;
   }
 
   // Function to remove a node from the list at a specific position
   remove(index) {
-    // TODO: Implement remove function
-    if (index < 0 || index > this.length) {
+    if (index < 0 || index >= this.length) {
       throw Error('Index out of bounds');
     }
+
+    if (index === 0) {
+      if (!this.head) {
+        return 'List empty';
+      }
+      this.head = this.head.next;
+      if (this.length === 1) {
+        this.tail = null;
+      }
+    } else {
+      let currentNode = this.head;
+      let i = 0;
+      while (i < index - 1) {
+        currentNode = currentNode.next;
+        i++;
+      }
+      if (index === this.length - 1) {
+        currentNode.next = null;
+        this.tail = currentNode;
+      } else {
+        currentNode.next = currentNode.next.next;
+      }
+    }
+    this.length--;
   }
 
   // Function to get the value of a node at a specific position in the list
   get(index) {
-    // TODO: Implement get function
     if (index < 0 || index > this.length) {
       throw Error('Index out of bounds');
     }
+
+    let i = 0;
+    let node = this.head;
+    while (i < index) {
+      node = node.next;
+      i++;
+    }
+    return node.value;
   }
 
   // Function to update the value of a node at a specific position in the list
   set(index, value) {
-    // TODO: Implement set function
-    if (index < 0 || index > this.length) {
-      throw Error('Index out of bounds');
+    if (index < 0 || index >= this.length) {
+      throw new Error('Index out of bounds');
+    }
+
+    let currentNode = this.head;
+    let nodeToAdd = new SinglyLinkedListNode(value, null);
+
+    if (index === 0) {
+      nodeToAdd.next = this.head.next;
+      this.head = nodeToAdd;
+    } else {
+      let i = 0;
+      while (i < index - 1) {
+        currentNode = currentNode.next;
+        i++;
+      }
+
+      nodeToAdd.next = currentNode.next.next;
+      currentNode.next = nodeToAdd;
     }
   }
 
   // Function to check if the list is empty
   isEmpty() {
-    // TODO: Implement isEmpty function
+    return this.length == 0;
   }
 
   // Function to get the length of the list
   size() {
-    // TODO: Implement size function
+    return this.length;
   }
 
   // Function to clear the list
   clear() {
-    // TODO: Implement clear function
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
   }
 
   // Function to print the list
   print() {
-    // TODO: Implement print function
+    let currentNode = this.head;
+    while (currentNode) {
+      console.log(currentNode.value);
+      currentNode = currentNode.next;
+    }
   }
 }
