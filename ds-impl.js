@@ -353,3 +353,140 @@ class SinglyLinkedList {
     }
   }
 }
+
+class BinarySearchNode {
+  constructor(left, value, right) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(value) {
+    let newNode = new BinarySearchNode(null, value, null);
+    //check if the root doesnt exist
+    if (this.root == null) {
+      this.root = newNode;
+    } else {
+      let currentNode = this.root;
+      while (currentNode) {
+        if (value < currentNode.value) {
+          if (currentNode.left === null) {
+            currentNode.left = newNode;
+            break;
+          } else {
+            currentNode = currentNode.left;
+          }
+        } else if (value > currentNode.value) {
+          if (currentNode.right === null) {
+            currentNode.right = newNode;
+            break;
+          } else {
+            currentNode = currentNode.right;
+          }
+        } else {
+          // value already exists in the tree
+          break;
+        }
+      }
+    }
+  }
+
+  search(value) {
+    // TODO: Implement search function
+  }
+
+  remove(value) {
+    // TODO: Implement remove function
+  }
+
+  isEmpty() {
+    // TODO: Implement isEmpty function
+  }
+
+  size() {
+    // TODO: Implement size function
+  }
+
+  clear() {
+    // TODO: Implement clear function
+  }
+
+  print() {
+    // TODO: Implement print function
+  }
+}
+
+//Merge sort
+const mergeSort = (arr) => {
+  sort(arr, 0, arr.length - 1);
+};
+
+const sort = (arr, startIndex, endIndex, temp = []) => {
+  if (startIndex >= endIndex) {
+    return;
+  }
+
+  const middleIndex = Math.floor((startIndex + endIndex) / 2);
+
+  sort(arr, startIndex, middleIndex, temp);
+  sort(arr, middleIndex + 1, endIndex, temp);
+  mergeHalves(arr, startIndex, middleIndex, endIndex, temp);
+};
+
+const mergeHalves = (arr, startIndex, middleIndex, endIndex, temp) => {
+  let leftIndex = startIndex;
+  let rightIndex = middleIndex + 1;
+  let tempIndex = startIndex;
+
+  while (leftIndex <= middleIndex && rightIndex <= endIndex) {
+    if (arr[leftIndex] <= arr[rightIndex]) {
+      temp[tempIndex] = arr[leftIndex];
+      leftIndex++;
+    } else {
+      temp[tempIndex] = arr[rightIndex];
+      rightIndex++;
+    }
+    tempIndex++;
+  }
+
+  while (leftIndex <= middleIndex) {
+    temp[tempIndex] = arr[leftIndex];
+    leftIndex++;
+    tempIndex++;
+  }
+
+  while (rightIndex <= endIndex) {
+    temp[tempIndex] = arr[rightIndex];
+    rightIndex++;
+    tempIndex++;
+  }
+
+  for (let i = startIndex; i <= endIndex; i++) {
+    arr[i] = temp[i];
+  }
+};
+
+function selectionSortFun(arr) {
+  const len = arr.length;
+  for (let i = 0; i < len - 1; i++) {
+      let minIndex = i;
+      for (let j = i + 1; j < len; j++) {
+          if (arr[j] < arr[minIndex]) {
+              minIndex = j;
+          }
+      }
+      if (minIndex !== i) {
+          [arr[i], arr[minIndex]] = 
+                  [arr[minIndex], arr[i]];
+      }
+  }
+  return arr;
+}
+const arr = [64, 34, 25, 12, 22, 11, 90];
+console.log(selectionSortFun(arr)); 
