@@ -527,4 +527,46 @@ class Graph {
   isEdge(fromNode, toNode) {
     return this.list[fromNode].includes(toNode);
   }
+
+  dfs(startNode, visited = new Set()) {
+    visited.add(startNode);
+    console.log(startNode);
+    this.list[startNode] = startNode;
+
+    this.list[startNode].forEach((node) => {
+      if (!visited.has(node)) {
+        this.dfs(node, visited);
+      }
+    });
+  }
+
+  bfs(startNode, visited = new Set()) {
+    const queue = [startNode];
+    visited.add(startNode);
+    while (queue.length > 0) {
+      const curr = queue.shift();
+      console.log(curr);
+
+      this.list[startNode].forEach((node) => {
+        if (!visited.has(node)) {
+          this.bfs(node, visited);
+          queue.push(node);
+        }
+      });
+    }
+  }
 }
+
+// Example usage
+const graph = new Graph();
+
+graph.addNode('A');
+graph.addNode('B');
+graph.addNode('C');
+graph.addNode('D');
+
+graph.addEdge('A', 'B');
+graph.addEdge('B', 'C');
+graph.addEdge('C', 'D');
+
+graph.dfs('A');
