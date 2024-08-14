@@ -557,6 +557,74 @@ class Graph {
   }
 }
 
+class PriorityQueue {
+  constructor() {
+    items = [];
+  }
+
+  front() {}
+
+  isEmpty() {
+    return items.length == 0;
+  }
+
+  rear() {}
+
+  printPQueue() {}
+
+  dequeue() {
+    if (items.length == 0) {
+      throw Error('No items in the Heap');
+    }
+    return items.shift();
+  }
+
+  enqueue(item, priority) {
+    let element = new Element(item, priority);
+    let contains = false;
+
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].priority > element.priority) {
+        this.items.splice(i, 0, element);
+        contains = true;
+        break;
+      }
+    }
+
+    if (!contains) {
+      this.items.push(element);
+    }
+  }
+}
+
+const djisktra = (graph, start) => {
+  let distances = [];
+
+  // foreach(let node in graph) {
+  //   distances.push(graph[node]);
+  // }
+
+  distances[start] = 0;
+
+  let priorityQueue = new PriorityQueue();
+
+  //return the shortest distances from start too all other nodes
+  return distances;
+};
+
+var g = new Graph();
+
+g.addNode('A');
+g.addNode('B');
+g.addNode('C');
+g.addNode('D');
+
+g.addEdge('A', 'B');
+g.addEdge('A', 'D');
+g.addEdge('B', 'C');
+g.addEdge('D', 'C');
+djisktra(g, 'A');
+
 // Example usage
 const graph = new Graph();
 
